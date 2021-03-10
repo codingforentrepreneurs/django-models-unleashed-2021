@@ -1,3 +1,4 @@
-id,title,price
-1,my first product,19.99
-2,my second product,19.29
+id,title,price,description,short_description
+1,my first product,19.99,,I dont like this desc
+2,my second product,19.29,,I dont like this desc
+2,my second product,19.29,,myuseraddss,
