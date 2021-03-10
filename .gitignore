@@ -3,4 +3,4 @@ include
 lib/
 pyvenv.cfg
 *.py[cod]
-src/.DS_Store
+.DS_Store
