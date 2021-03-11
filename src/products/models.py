@@ -3,19 +3,17 @@ from django.db import models
 from .validators import validate_blocked_words
 
 # (DB_VALUE, USER_FACING_VALUE)
-PUBLISH_STATE_CHOICES = [
-    ('DR', 'Draft'),
-    ('PU', 'Publish'),
-    ('PR', 'Private'),
-]
+
 
 # Create your models here.
 class Product(models.Model):
-    """
-    admin.site.register(Product)
-    """
+    class ProductStateOptions(models.TextChoices):
+        PUBLISH = 'PU', 'Published'
+        DRAFT = 'DR', 'Draft'
+        PRIVATE = 'PR', 'Private'
+
     title = models.CharField(max_length=120, validators=[validate_blocked_words])
-    state = models.CharField(max_length=2, default='DR', choices=PUBLISH_STATE_CHOICES)
+    state = models.CharField(max_length=2, default=ProductStateOptions.DRAFT, choices=ProductStateOptions.choices)
     description = models.TextField(null=True) # null=True is an null value in db
     price = models.DecimalField(max_digits=20, decimal_places=2)
 
@@ -25,7 +23,7 @@ class Product(models.Model):
 
     @property
     def is_published(self):
-        return self.state == "PU"
+        return self.state == self.ProductStateOptions.PUBLISH
 
     """
     def clean(self):
