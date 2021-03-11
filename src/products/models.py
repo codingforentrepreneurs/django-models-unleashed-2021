@@ -14,3 +14,13 @@ class Product(models.Model):
     def save(self, *args, **kwargs):
         validate_blocked_words(self.title)
         super().save(*args, **kwargs)
+
+    """
+    def clean(self):
+        '''
+        Django Model Forms / Django Forms
+        Project.objects.create() -> not call .clean()
+        '''
+        if self.title == self.description:
+            raise ValidationError("Make the description different")
+    """
