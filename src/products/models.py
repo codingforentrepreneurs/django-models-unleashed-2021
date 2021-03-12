@@ -12,11 +12,11 @@ class Product(models.Model):
         PUBLISH = 'PU', 'Published'
         DRAFT = 'DR', 'Draft'
         PRIVATE = 'PR', 'Private'
-
+    
     title = models.CharField(max_length=120, validators=[validate_blocked_words])
-    state = models.CharField(max_length=2, default=ProductStateOptions.DRAFT, choices=ProductStateOptions.choices)
     description = models.TextField(null=True) # null=True is an null value in db
     price = models.DecimalField(max_digits=20, decimal_places=2)
+    state = models.CharField(max_length=2, default=ProductStateOptions.DRAFT, choices=ProductStateOptions.choices)
     publish_timestamp = models.DateTimeField(auto_now_add=False, auto_now=False, null=True) # auto set when the state changes to `PUBLISH`
     timestamp = models.DateTimeField(auto_now_add=True) # auto set when this object was created
     updated = models.DateTimeField(auto_now=True) # auto set when this object was lasted saved
@@ -38,12 +38,7 @@ class Product(models.Model):
         publish_timestamp = self.publish_timestamp
         return self.state_is_published and publish_timestamp < timezone.now()
 
-    """
-    def clean(self):
-        '''
-        Django Model Forms / Django Forms
-        Project.objects.create() -> not call .clean()
-        '''
-        if self.title == self.description:
-            raise ValidationError("Make the description different")
-    """
+    class Meta:
+        ordering = ['-publish_timestamp', '-updated', '-timestamp']
+        get_latest_by = ['-publish_timestamp', '-updated', '-timestamp']
+        # products_product
