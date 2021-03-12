@@ -31,3 +31,9 @@ Product.objects.bulk_create(my_new_objs, ignore_conflicts=True)
 # obj = Product.objects.first()
 # obj.delete()
 
+# fixtures -> testing -> migrating data from databases
+
+# psql, mysql
+
+# db -> psql
+# python manage.py inspectdb -> convert database table to django model
