@@ -3,8 +3,23 @@ from django.db import models
 from django.utils import timezone
 from .validators import validate_blocked_words
 
-# (DB_VALUE, USER_FACING_VALUE)
 
+class ProductQuerySet(models.QuerySet):
+    def published(self):
+        now = timezone.now()
+        return self.filter(state=Product.ProductStateOptions.PUBLISH, publish_timestamp__lte=now) 
+
+# (DB_VALUE, USER_FACING_VALUE)
+class ProductManager(models.Manager):
+    def get_queryset(self):
+        return ProductQuerySet(self.model, using=self._db)
+
+    def published(self):
+        # Product.objects.published()
+        # Product.objects.filter(title__icontains='Title').published()
+        return self.get_queryset().published()
+
+        
 
 # Create your models here.
 class Product(models.Model):
@@ -19,6 +34,9 @@ class Product(models.Model):
     publish_timestamp = models.DateTimeField(auto_now_add=False, auto_now=False, null=True) # auto set when the state changes to `PUBLISH`
     timestamp = models.DateTimeField(auto_now_add=True) # auto set when this object was created
     updated = models.DateTimeField(auto_now=True) # auto set when this object was lasted saved
+    
+    objects = ProductManager()
+    
     class Meta:
         ordering = ['-updated', '-timestamp']
         # verbose_name = 'Product' 
