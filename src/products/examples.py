@@ -1,4 +1,10 @@
+from django.contrib.auth import get_user_model
 from products.models import Product 
+
+User = get_user_model()
+
+j = User.objects.first()
+Product.objects.create(user=j, title='My J user product', price=129.2)
 
 datas = [
     {"title": "product 1", "price": 12.33},

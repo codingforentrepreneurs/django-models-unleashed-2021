@@ -1,10 +1,12 @@
 # import datetime
+from django.conf import settings
 from django.db import models
 from django.db.models.signals import pre_save
 from django.utils import timezone
 from django.utils.text import slugify
 from .validators import validate_blocked_words
 
+User = settings.AUTH_USER_MODEL # "auth.User"
 
 class ProductQuerySet(models.QuerySet):
     def published(self):
@@ -21,7 +23,7 @@ class ProductManager(models.Manager):
         # Product.objects.filter(title__icontains='Title').published()
         return self.get_queryset().published()
 
-        
+       
 
 # Create your models here.
 class Product(models.Model):
@@ -29,6 +31,7 @@ class Product(models.Model):
         PUBLISH = 'PU', 'Published'
         DRAFT = 'DR', 'Draft'
         PRIVATE = 'PR', 'Private'
+    user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     title = models.CharField(max_length=120, validators=[validate_blocked_words])
     description = models.TextField(null=True) # null=True is an null value in db
     tags = models.TextField(null=True)
