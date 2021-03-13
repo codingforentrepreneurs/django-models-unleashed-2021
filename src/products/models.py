@@ -1,6 +1,8 @@
 # import datetime
 from django.db import models
+from django.db.models.signals import pre_save
 from django.utils import timezone
+from django.utils.text import slugify
 from .validators import validate_blocked_words
 
 
@@ -29,6 +31,7 @@ class Product(models.Model):
         PRIVATE = 'PR', 'Private'
     title = models.CharField(max_length=120, validators=[validate_blocked_words])
     description = models.TextField(null=True) # null=True is an null value in db
+    slug = models.SlugField(blank=True, null=True, db_index=True)
     price = models.DecimalField(max_digits=20, decimal_places=2)
     state = models.CharField(max_length=2, default=ProductStateOptions.DRAFT, choices=ProductStateOptions.choices)
     publish_timestamp = models.DateTimeField(auto_now_add=False, auto_now=False, null=True) # auto set when the state changes to `PUBLISH`
@@ -43,6 +46,12 @@ class Product(models.Model):
         # verbose_name_plural =  'Products'
         # unique_together = [['title', 'order']]
         # db_table = '<appname>_<modelname>' # 'products_mycoolproduct'
+
+    def get_absolute_url(self):
+        "http://www.mysite.com/products/my-awesome-product/"
+        "http://www.mysite.com/products/1/"
+        return f"/product/{self.slug}/"
+
 
     def save(self, *args, **kwargs):
         validate_blocked_words(self.title)
@@ -60,3 +69,20 @@ class Product(models.Model):
     def is_published(self):
         publish_timestamp = self.publish_timestamp
         return self.state_is_published and publish_timestamp < timezone.now()
+
+
+
+
+def slugify_pre_save(sender, instance, *args, **kwargs):
+    # create my slug from my title
+    if instance.slug is None or instance.slug == "":
+        new_slug = slugify(instance.title)
+        Klass = instance.__class__
+        qs = Klass.objects.filter(slug=new_slug).exclude(id=instance.id)
+        if qs.count() == 0:
+            instance.slug = new_slug
+        else:
+            instance.slug = f"{new_slug}-{qs.count()}"
+
+
+pre_save.connect(slugify_pre_save, sender=Product)
