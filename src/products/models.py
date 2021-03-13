@@ -82,7 +82,7 @@ def slugify_pre_save(sender, instance, *args, **kwargs):
     if instance.slug is None or instance.slug == "":
         new_slug = slugify(instance.title)
         Klass = instance.__class__
-        qs = Klass.objects.filter(slug=new_slug).exclude(id=instance.id)
+        qs = Klass.objects.filter(slug__icontains=new_slug).exclude(id=instance.id)
         if qs.count() == 0:
             instance.slug = new_slug
         else:
