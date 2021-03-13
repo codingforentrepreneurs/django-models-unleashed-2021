@@ -3,8 +3,8 @@ from products.models import Product
 
 User = get_user_model()
 
-j = User.objects.first()
-Product.objects.create(user=j, title='My J user product', price=129.2)
+abc = User.objects.last()
+Product.objects.create(user=abc, title='My J user product', price=129.2)
 
 datas = [
     {"title": "product 1", "price": 12.33},
