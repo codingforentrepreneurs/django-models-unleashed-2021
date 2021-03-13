@@ -1,0 +1,122 @@
+[
+{
+    "model": "products.product",
+    "pk": 1,
+    "fields": {
+        "title": "Abc",
+        "description": null,
+        "tags": null,
+        "slug": "abc",
+        "price": "19.99",
+        "state": "PU",
+        "publish_timestamp": "2021-03-12T20:27:03.039Z",
+        "timestamp": "2021-03-12T20:18:55.356Z",
+        "updated": "2021-03-12T20:27:03.040Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 2,
+    "fields": {
+        "title": "Abc",
+        "description": null,
+        "tags": null,
+        "slug": "abc-1",
+        "price": "19.99",
+        "state": "draft",
+        "publish_timestamp": null,
+        "timestamp": "2021-03-12T20:18:55.356Z",
+        "updated": "2021-03-12T20:18:55.359Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 3,
+    "fields": {
+        "title": "This title",
+        "description": null,
+        "tags": null,
+        "slug": "this-title",
+        "price": "19.99",
+        "state": "PU",
+        "publish_timestamp": null,
+        "timestamp": "2021-03-12T20:18:55.356Z",
+        "updated": "2021-03-12T20:18:55.359Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 4,
+    "fields": {
+        "title": "Abc",
+        "description": null,
+        "tags": null,
+        "slug": "abc-1",
+        "price": "123.33",
+        "state": "PU",
+        "publish_timestamp": null,
+        "timestamp": "2021-03-12T20:18:55.356Z",
+        "updated": "2021-03-12T20:18:55.359Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 5,
+    "fields": {
+        "title": "title",
+        "description": null,
+        "tags": null,
+        "slug": "title",
+        "price": "129.99",
+        "state": "DR",
+        "publish_timestamp": null,
+        "timestamp": "2021-03-12T21:35:25.495Z",
+        "updated": "2021-03-12T21:35:25.495Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 6,
+    "fields": {
+        "title": "title",
+        "description": null,
+        "tags": null,
+        "slug": "title-1",
+        "price": "129.99",
+        "state": "DR",
+        "publish_timestamp": null,
+        "timestamp": "2021-03-12T21:35:35.605Z",
+        "updated": "2021-03-12T21:35:35.605Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 7,
+    "fields": {
+        "title": "title",
+        "description": null,
+        "tags": null,
+        "slug": "title-1",
+        "price": "123.99",
+        "state": "DR",
+        "publish_timestamp": null,
+        "timestamp": "2021-03-12T21:36:06.734Z",
+        "updated": "2021-03-12T21:36:06.734Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 8,
+    "fields": {
+        "title": "This should make a slug",
+        "description": null,
+        "tags": null,
+        "slug": "this-should-make-a-slug-1",
+        "price": "29.99",
+        "state": "DR",
+        "publish_timestamp": null,
+        "timestamp": "2021-03-13T00:01:46.418Z",
+        "updated": "2021-03-13T00:02:02.050Z"
+    }
+}
+]

@@ -31,6 +31,7 @@ class Product(models.Model):
         PRIVATE = 'PR', 'Private'
     title = models.CharField(max_length=120, validators=[validate_blocked_words])
     description = models.TextField(null=True) # null=True is an null value in db
+    tags = models.TextField(null=True)
     slug = models.SlugField(blank=True, null=True, db_index=True)
     price = models.DecimalField(max_digits=20, decimal_places=2)
     state = models.CharField(max_length=2, default=ProductStateOptions.DRAFT, choices=ProductStateOptions.choices)
